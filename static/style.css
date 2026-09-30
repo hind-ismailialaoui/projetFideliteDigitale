@@ -106,6 +106,10 @@ a {
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
+.field + button {
+  margin-top: 22px;
+}
+
 .form-link-row {
   display: flex;
   justify-content: flex-end;
