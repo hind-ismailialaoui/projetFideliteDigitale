@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOGRA — Create account</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-shell">
+      <img class="brand-logo" src="/static/SOGRA.svg" alt="SOGRA logo">
+
+      <h1>Create account</h1>
+
+      <form class="auth-card">
+        <div class="field">
+          <label for="first-name">First name</label>
+          <input id="first-name" name="first_name" type="text" placeholder="Alex" autocomplete="given-name" required>
+        </div>
+
+        <div class="field">
+          <label for="last-name">Last name</label>
+          <input id="last-name" name="last_name" type="text" placeholder="Morgan" autocomplete="family-name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required>
+        </div>
+
+        <button type="submit">Create account</button>
+      </form>
+
+      <p class="switch-page">Already a member? <a href="/login">Sign in</a></p>
+
+      <p class="legal">
+        By continuing, you agree to our
+        <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
