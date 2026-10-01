@@ -1,1 +1,5 @@
 Flask
+supabase==2.31.0
+phonenumbers==9.0.16
+email-validator==2.3.0
+python-dotenv==1.1.1
