@@ -1,255 +1,328 @@
-/* SOGRA — authentication pages */
+/* SOGRA — Styles communs aux pages Login, Register, Account recovery, OTP et Home.
+ * Repères pour modifier l'apparence :
+ * - font-size : taille du texte ; width / height : largeur / hauteur.
+ * - margin : espace EXTERIEUR ; padding : espace INTERIEUR.
+ * - 2 valeurs : haut/bas, gauche/droite ; 3 : haut, gauche/droite, bas.
+ * - 4 valeurs : haut, droite, bas, gauche. auto peut centrer horizontalement.
+ * - px : pixels ; % : proportion du parent ; vh : proportion de la hauteur de l'écran.
+ * - Les règles @media en fin de fichier remplacent certains réglages sur mobile.
+ * Raccourcis : largeur des formulaires = .auth-shell ; taille du logo = .brand-logo ;
+ * position verticale = .auth-page ; champs = .field input ; boutons = .auth-card button.
+ */
 
+/* Calcul des dimensions pour tous les éléments. */
 * {
-  box-sizing: border-box;
+  box-sizing: border-box; /* Inclut bordures et padding dans width et height. */
 }
 
+/* Palette partagée : changer une variable modifie tous ses usages via var(...).
+ * Les couleurs écrites directement dans les règles se modifient à cet endroit.
+ */
 :root {
-  --bg: #ffffff;
-  --text: #0d0d0d;
-  --muted: #777777;
-  --soft-muted: #a1a1a1;
-  --border: #d9d9d9;
-  --input-border: #cfcfcf;
-  --black: #000000;
+  --bg: #ffffff; /* Fond de la page. */
+  --text: #0d0d0d; /* Texte principal. */
+  --muted: #777777; /* Texte secondaire et lien de retour. */
+  --soft-muted: #a1a1a1; /* Texte des mentions légales. */
+  --border: #d9d9d9; /* Contour des formulaires. */
+  --input-border: #cfcfcf; /* Contour des champs de saisie. */
+  --black: #000000; /* Fond des boutons. */
 }
 
+/* Retire les marges par défaut du navigateur. */
 html,
 body {
-  margin: 0;
-  min-height: 100%;
+  margin: 0; /* Aucun espace extérieur autour de la page. */
+  min-height: 100%; /* Hauteur minimale égale à celle du parent, si elle est définie. */
 }
 
+/* Apparence générale de toutes les pages. */
 body {
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  min-height: 100vh; /* Occupe au moins toute la hauteur de l'écran. */
+  background: var(--bg); /* Couleur de fond. */
+  color: var(--text); /* Couleur du texte par défaut. */
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* Polices par ordre de préférence, selon leur disponibilité. */
+  -webkit-font-smoothing: antialiased; /* Lissage du texte sur les navigateurs compatibles. */
 }
 
+/* Liens : aspect commun, sauf remplacement dans une règle plus spécifique. */
 a {
-  color: inherit;
-  text-underline-offset: 3px;
+  color: inherit; /* Reprend la couleur du texte du parent. */
+  text-underline-offset: 3px; /* Distance entre le texte et son soulignement. */
 }
 
+/* Zone principale des trois pages d'authentification. */
 .auth-page {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 110px 24px 48px;
+  min-height: 100vh; /* Hauteur minimale de la page. */
+  display: flex; /* Active le placement flexible du contenu. */
+  justify-content: center; /* Centre le formulaire horizontalement. */
+  align-items: flex-start; /* Place le contenu en haut ; center le centrerait verticalement. */
+  padding: 77px 17px 34px; /* Distance au bord : haut, côtés, bas. Modifier 77px pour monter/descendre le contenu. */
 }
 
+/* Colonne contenant logo, titre, formulaire et liens. */
 .auth-shell {
-  width: 100%;
-  max-width: 430px;
-  text-align: center;
+  width: 100%; /* Utilise la largeur disponible sur les petits écrans. */
+  max-width: 280px; /* LARGEUR MAXIMALE de l'ensemble du formulaire. */
+  text-align: center; /* Centre les textes, sauf ceux avec une règle spécifique. */
 }
 
+/* Logo SOGRA : modifier width et height ensemble pour conserver un cadre carré. */
 .brand-logo {
-  display: block;
-  width: 78px;
-  height: 78px;
-  object-fit: contain;
-  margin: 0 auto 18px;
+  display: block; /* Place le logo sur sa propre ligne. */
+  width: 54px; /* Largeur du logo. */
+  height: 54px; /* Hauteur du logo. */
+  object-fit: contain; /* Affiche le logo entier sans le déformer. */
+  margin: 0 auto 12px; /* Aucun espace en haut, centrage horizontal, espace sous le logo. */
 }
 
+/* Titres des pages d'authentification. */
 .auth-shell h1 {
-  margin: 0 0 34px;
-  font-size: 34px;
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.04em;
+  margin: 0 0 24px; /* Espace sous le titre avant le formulaire. */
+  font-size: 24px; /* Taille du titre. */
+  line-height: 1.1; /* Hauteur de ligne : 1,1 fois la taille du texte. */
+  font-weight: 700; /* Épaisseur : 400 normal, 700 gras. */
+  letter-spacing: 0; /* Espacement supplémentaire entre les lettres. */
 }
 
+/* Cadre du formulaire. */
 .auth-card {
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  text-align: left;
-  background: #fff;
+  border: 1px solid var(--border); /* Épaisseur, style et couleur du contour. */
+  border-radius: 8px; /* Arrondi des coins ; 0 donne des coins carrés. */
+  padding: 14px; /* Espace intérieur entre le contour et les champs. */
+  text-align: left; /* Aligne les labels et les champs à gauche. */
+  background: #fff; /* Fond du formulaire. */
 }
 
+/* Le signe + cible un champ immédiatement précédé d'un autre champ. */
 .field + .field {
-  margin-top: 20px;
+  margin-top: 14px; /* Espace vertical ENTRE les champs, sans marge avant le premier. */
 }
 
+/* Labels au-dessus des champs : Phone number, City, Recovery email, etc. */
 .field label {
-  display: block;
-  margin-bottom: 8px;
-  font-size: 15px;
-  line-height: 1.3;
-  font-weight: 600;
+  display: block; /* Affiche le label sur une ligne séparée. */
+  margin-bottom: 6px; /* Distance entre le label et son champ. */
+  font-size: 12px; /* Taille du label. */
+  line-height: 1.3; /* Hauteur de ligne relative à la taille du texte. */
+  font-weight: 600; /* Épaisseur du label. */
 }
 
+/* Champs de saisie de tous les formulaires. */
 .field input {
-  width: 100%;
-  height: 52px;
-  padding: 0 15px;
-  border: 1px solid var(--input-border);
-  border-radius: 10px;
-  background: #fff;
-  color: var(--text);
-  font: inherit;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%; /* Remplit la largeur intérieure du formulaire. */
+  height: 32px; /* HAUTEUR des champs. */
+  padding: 0 10px; /* Espace entre le texte et les bords gauche/droit du champ. */
+  border: 1px solid var(--input-border); /* Contour du champ. */
+  border-radius: 7px; /* Arrondi des coins du champ. */
+  background: #fff; /* Fond du champ. */
+  color: var(--text); /* Couleur du texte saisi. */
+  font: inherit; /* Reprend la police du parent avant de régler sa taille ci-dessous. */
+  font-size: 13px; /* Taille du texte saisi et du texte indicatif. */
+  outline: none; /* Retire le contour natif ; le focus personnalisé est défini ci-dessous. */
+  transition: border-color 0.15s ease, box-shadow 0.15s ease; /* Durée et rythme du changement de contour au focus. */
 }
 
+/* Texte indicatif affiché lorsque le champ est vide. */
 .field input::placeholder {
-  color: #b2b2b2;
+  color: #b2b2b2; /* Couleur de you@example.com, At least 8 characters, etc. */
 }
 
+/* Aspect du champ actif après un clic ou une sélection au clavier. */
 .field input:focus {
-  border-color: #111111;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  border-color: #111111; /* Couleur du contour du champ actif. */
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05); /* Décalages X/Y, flou, épaisseur, couleur : halo de 3px, noir à 5 % d'opacité. */
 }
 
+/* Espace avant un bouton placé directement après un champ. */
 .field + button {
-  margin-top: 22px;
+  margin-top: 15px; /* Distance entre le dernier champ et le bouton. */
 }
 
+/* Ligne du lien Account recovery sur Login. */
 .form-link-row {
-  display: flex;
-  justify-content: flex-end;
-  margin: 18px 0 20px;
+  display: flex; /* Active l'alignement du lien dans la ligne. */
+  justify-content: flex-end; /* Aligne le lien à droite ; center le centrerait. */
+  margin: 12px 0 14px; /* Espace au-dessus du lien, sur les côtés et avant le bouton. */
 }
 
+/* Apparence du lien Account recovery. */
 .form-link-row a {
-  font-size: 14px;
-  color: #343434;
+  font-size: 9.8px; /* Taille du lien. */
+  color: #343434; /* Couleur du lien. */
 }
 
+/* Boutons Send code, Verify code et Send recovery link. */
 .auth-card button {
-  width: 100%;
-  height: 56px;
-  border: 0;
-  border-radius: 0;
-  background: var(--black);
-  color: #ffffff;
-  font: inherit;
-  font-size: 17px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.15s ease;
+  width: 100%; /* Largeur du bouton par rapport au formulaire. */
+  height: 39px; /* HAUTEUR du bouton. */
+  border: 0; /* Supprime le contour natif du bouton. */
+  border-radius: 10px; /* Coins carrés ; augmenter pour les arrondir. */
+  background: var(--black); /* Couleur de fond du bouton. */
+  color: #ffffff; /* Couleur du texte du bouton. */
+  font: inherit; /* Reprend la police du parent. */
+  font-size: 13px; /* Taille du texte du bouton. */
+  font-weight: 500; /* Épaisseur du texte du bouton. */
+  cursor: pointer; /* Curseur en forme de main au survol. */
+  transition: opacity 0.15s ease; /* Durée et rythme du changement d'opacité au survol. */
 }
 
+/* :hover correspond au survol avec la souris. */
 .auth-card button:hover {
-  opacity: 0.88;
+  opacity: 0.88; /* Opacité au survol : 1 opaque, 0 invisible. */
 }
 
+/* Texte New here? / Already a member? sous le formulaire. */
 .switch-page {
-  margin: 28px 0 0;
-  color: var(--muted);
-  font-size: 15px;
+  margin: 20px 0 0; /* Distance entre le formulaire et ce texte. */
+  color: var(--muted); /* Couleur du texte secondaire. */
+  font-size: 10.5px; /* Taille du texte. */
 }
 
+/* Liens Login et Register dans le texte sous le formulaire. */
 .switch-page a {
-  color: var(--text);
-  font-weight: 500;
+  color: var(--text); /* Couleur du lien, distincte du texte qui l'entoure. */
+  font-weight: 500; /* Épaisseur du lien. */
 }
 
+/* Bloc de mentions légales en bas des pages d'authentification. */
 .legal {
-  max-width: 360px;
-  margin: 30px auto 0;
-  color: var(--soft-muted);
-  font-size: 13px;
-  line-height: 1.55;
+  max-width: 252px; /* Largeur maximale ; influence les retours à la ligne. */
+  margin: 21px auto 0; /* Espace au-dessus et centrage horizontal du bloc. */
+  color: var(--soft-muted); /* Couleur des mentions. */
+  font-size: 9.1px; /* Taille des mentions. */
+  line-height: 1.55; /* Espacement vertical des lignes, relatif à la taille du texte. */
 }
 
+/* Liens Terms et Privacy Policy. */
 .legal a {
-  color: #737373;
+  color: #737373; /* Couleur des liens légaux. */
 }
 
-.reset-page {
-  padding-top: 90px;
+/* Réglages spécifiques à Account recovery, qui remplacent les règles communes. */
+.recovery-page {
+  padding-top: 63px; /* Position verticale du contenu sur cette page. */
 }
 
-.reset-shell {
-  text-align: left;
+.recovery-shell {
+  text-align: left; /* Aligne le contenu de Account recovery à gauche. */
 }
 
-.reset-shell h1 {
-  margin-top: 38px;
-  text-align: left;
+.recovery-shell h1 {
+  margin-top: 27px; /* Distance entre Back to login et le titre. */
+  text-align: left; /* Alignement du titre. */
 }
 
-.reset-shell .auth-card {
-  margin-top: 0;
+.recovery-shell .auth-card {
+  margin-top: 0; /* Aucune marge supplémentaire avant le formulaire. */
 }
 
-.reset-shell .legal {
-  text-align: center;
+.recovery-shell .legal {
+  text-align: center; /* Centre les mentions malgré l'alignement à gauche du parent. */
 }
 
+/* Lien Back to login sur Account recovery. */
 .back-link {
-  display: inline-block;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 16px;
+  display: inline-block; /* Le lien occupe seulement la largeur de son contenu. */
+  color: var(--muted); /* Couleur du lien au repos. */
+  text-decoration: none; /* Retire le soulignement ; underline le rétablirait. */
+  font-size: 11.2px; /* Taille du lien. */
 }
 
 .back-link:hover {
-  color: var(--text);
+  color: var(--text); /* Couleur du lien au survol. */
 }
 
+/* Mise en page de Home. */
 .welcome-page {
-  min-height: 100vh;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 22px;
-  padding: 24px;
-  text-align: center;
+  min-height: 100vh; /* Occupe au moins toute la hauteur de l'écran. */
+  display: grid; /* Active une grille pour placer les éléments. */
+  place-content: center; /* Centre l'ensemble du contenu horizontalement et verticalement. */
+  justify-items: center; /* Centre chaque élément dans sa colonne. */
+  gap: 15px; /* Distance entre les éléments, si plusieurs sont présents. */
+  padding: 17px; /* Distance minimale entre le contenu et les bords. */
+  text-align: center; /* Centre le texte. */
 }
 
+/* S'applique si un logo est ajouté dans Home. */
 .welcome-page .brand-logo {
-  margin: 0;
+  margin: 0; /* Retire les marges du logo ; gap gère les espaces dans la grille. */
 }
 
+/* Titre Welcome sur Home. */
 .welcome-page h1 {
-  margin: 0;
-  font-size: clamp(32px, 6vw, 52px);
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  font-weight: 700;
+  margin: 0; /* Supprime les marges natives du titre. */
+  font-size: 36px; /* Taille du titre sur ordinateur. */
+  line-height: 1.1; /* Hauteur de ligne relative à la taille du titre. */
+  letter-spacing: 0; /* Espacement supplémentaire entre les lettres. */
+  font-weight: 700; /* Épaisseur du titre. */
 }
 
+/* MOBILE : ces réglages s'appliquent si la fenêtre mesure 600px ou moins.
+ * Ils remplacent les mêmes propriétés définies plus haut.
+ * Pour changer un réglage sur ordinateur ET mobile, vérifier les deux endroits.
+ * Modifier 600px pour changer le seuil de passage à cette mise en page.
+ */
 @media (max-width: 600px) {
   .auth-page {
-    padding: 72px 18px 36px;
+    padding: 50px 13px 25px; /* Espaces haut, côtés et bas sur mobile. */
   }
 
   .auth-shell {
-    max-width: 100%;
+    max-width: 280px; /* Largeur maximale du formulaire sur mobile. */
   }
 
   .brand-logo {
-    width: 68px;
-    height: 68px;
-    margin-bottom: 16px;
+    width: 47px; /* Largeur du logo sur mobile. */
+    height: 47px; /* Hauteur du logo sur mobile. */
+    margin-bottom: 11px; /* Espace sous le logo sur mobile. */
   }
 
   .auth-shell h1 {
-    margin-bottom: 28px;
-    font-size: 30px;
+    margin-bottom: 20px; /* Espace sous le titre sur mobile. */
+    font-size: 21px; /* Taille du titre d'authentification sur mobile. */
   }
 
   .auth-card {
-    padding: 20px;
-    border-radius: 14px;
+    padding: 14px; /* Espace intérieur du formulaire sur mobile. */
+    border-radius: 8px; /* Arrondi du formulaire sur mobile. */
   }
 
   .field input {
-    height: 50px;
+    height: 32px; /* Hauteur des champs sur mobile. */
   }
 
   .auth-card button {
-    height: 54px;
+    height: 37px; /* Hauteur des boutons sur mobile. */
   }
 
-  .reset-page {
-    padding-top: 52px;
+  .recovery-page {
+    padding-top: 36px; /* Position verticale de Account recovery sur mobile. */
   }
+
+  .welcome-page h1 {
+    font-size: 22px; /* Taille du titre Welcome sur mobile. */
+  }
+}
+
+/* Explications relatives aux données demandées et au code envoyé. */
+.field-help,
+.page-note {
+  margin: 8px 0 0; /* Espace au-dessus de l'explication. */
+  font-size: 11px; /* Taille du texte explicatif. */
+  line-height: 1.5; /* Espacement des lignes. */
+  color: var(--muted); /* Couleur secondaire. */
+  overflow-wrap: anywhere; /* Empêche un long numéro ou texte de déborder. */
+}
+
+.page-note {
+  margin: 0 0 18px; /* Espace entre l'explication et le formulaire. */
+}
+
+/* Erreurs de validation et indisponibilité du service. */
+.form-error {
+  margin: 0 0 14px; /* Espace sous le message d'erreur. */
+  color: #b42318; /* Couleur du texte d'erreur. */
+  font-size: 12px; /* Taille du message. */
+  line-height: 1.5; /* Espacement des lignes du message. */
+  overflow-wrap: anywhere; /* Garde les messages dans le cadre du formulaire. */
 }
