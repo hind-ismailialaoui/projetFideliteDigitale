@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOGRA — Account recovery</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="auth-page recovery-page">
+    <section class="auth-shell recovery-shell">
+      <a class="back-link" href="/login">← Back to login</a>
+
+      <h1>Account recovery</h1>
+      <p class="page-note">Enter the recovery email linked to your account.</p>
+
+      <form class="auth-card" action="/account-recovery" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+        <div class="field">
+          <label for="email">Recovery email</label>
+          <input
+            id="email"
+            name="recovery_email"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            maxlength="254"
+            value="{{ request.form.get('recovery_email', '') }}"
+            required
+          >
+        </div>
+
+        <button type="submit">Send recovery link</button>
+      </form>
+
+      <p class="legal">
+        By continuing, you agree to our
+        <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+      </p>
+    </section>
+  </main>
+</body>
+</html>

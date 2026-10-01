@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOGRA — Verification code</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="auth-page">
+    <section class="auth-shell">
+      <img class="brand-logo" src="/static/SOGRA.svg" alt="SOGRA logo">
+      <h1>Verification code</h1>
+      <p class="page-note">Code sent to {{ phone }}.</p>
+      <form class="auth-card" action="/verify-code" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+        <div class="field">
+          <label for="code">Verification code</label>
+          <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" minlength="6" placeholder="123456" required autofocus>
+        </div>
+        <button type="submit">Verify code</button>
+      </form>
+      <p class="switch-page"><a href="{{ '/register' if session.pending_register else '/login' }}">Change phone number or resend code</a></p>
+    </section>
+  </main>
+</body>
+</html>

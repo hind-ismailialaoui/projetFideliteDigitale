@@ -14,27 +14,25 @@
       <h1>Register</h1>
 
       <form class="auth-card" action="/register" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
         <div class="field">
-          <label for="first-name">First name</label>
-          <input id="first-name" name="first_name" type="text" placeholder="Alex" autocomplete="given-name" required>
+          <label for="phone">Phone number *</label>
+          <input id="phone" name="phone" type="tel" placeholder="+33 6 12 34 56 78" autocomplete="tel" maxlength="30" value="{{ request.form.get('phone', '') }}" required>
         </div>
 
         <div class="field">
-          <label for="last-name">Last name</label>
-          <input id="last-name" name="last_name" type="text" placeholder="Morgan" autocomplete="family-name" required>
+          <label for="city">City *</label>
+          <input id="city" name="city" type="text" placeholder="Paris" autocomplete="address-level2" maxlength="100" value="{{ request.form.get('city', '') }}" required>
         </div>
 
         <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+          <label for="recovery-email">Recovery email (optional)</label>
+          <input id="recovery-email" name="recovery_email" type="email" placeholder="you@example.com" autocomplete="email" aria-describedby="recovery-help" maxlength="254" value="{{ request.form.get('recovery_email', '') }}">
+          <p id="recovery-help" class="field-help">Used only if you lose access to your phone number. Never used for marketing.</p>
         </div>
 
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required>
-        </div>
-
-        <button type="submit">Register</button>
+        <button type="submit">Send code</button>
       </form>
 
       <p class="switch-page">Already a member? <a href="/login">Login</a></p>

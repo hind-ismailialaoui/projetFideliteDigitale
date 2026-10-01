@@ -14,21 +14,18 @@
       <h1>Login</h1>
 
       <form class="auth-card" action="/login" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
         <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" placeholder="At least 8 characters" autocomplete="current-password" minlength="8" required>
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" placeholder="+33 6 12 34 56 78" autocomplete="tel" maxlength="30" value="{{ request.form.get('phone', '') }}" required>
         </div>
 
         <div class="form-link-row">
-          <a href="/reset-password">Forgot password?</a>
+          <a href="/account-recovery">Account recovery</a>
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit">Send code</button>
       </form>
 
       <p class="switch-page">New here? <a href="/register">Register</a></p>
